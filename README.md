@@ -10,7 +10,7 @@ The user can select multiple documents to generate the following :
 - A list of the most common occurring words, and the sentences where they are used
 
 
-### Instance deployed to Azure
+### Web App deployed to Azure
 https://document-analyser.azurewebsites.net/<br/>
 
 
