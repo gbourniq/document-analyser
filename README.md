@@ -1,5 +1,5 @@
 # Document Analyser Application
-https://document-analyser.azurewebsites.net/<br/>
+URL: https://document-analyser.azurewebsites.net/<br/>
 
 ### Overview
 The purpose of this web app is to generate insights from documents contents (text files and pdf scans).
@@ -21,18 +21,23 @@ This is a Python Flask project integrating the following modules:
 ### Screenshots
 
 Home page
+<br>
 ![image](images/home_page.png)
 
 Loading page (Extract data and generate results)
+<br>
 ![image](images/loading_data.png)
 
 Bar plot showing the top N keywords per uploaded document
+<br>
 ![image](images/keywords_per_doc.png)
 
 Wordcloud visualisation
+<br>
 ![image](images/wordcloud.png)
 
 Topic identification and key sentences tables
+<br>
 ![image](images/topic_identification_key_sentences.png)
 <br>
 
