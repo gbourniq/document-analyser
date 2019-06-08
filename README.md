@@ -4,7 +4,7 @@
 ### Overview
 The purpose of this web app is to generate insights from documents content (text files and pdf scans).
 The user can select multiple documents to generate the following :
-- Bar plot showing the 20 keywords used in all documents
+- Bar plot chart with the top 20 keywords in all documents
 - Wor cloud visualisation showing the most important keywords in all documents
 - Toics identification table
 - Key phrases containing the most important keywords
