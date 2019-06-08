@@ -8,7 +8,6 @@ The user can select multiple documents to generate the following :
 - Wor cloud visualisation showing the most important keywords in all documents
 - Toics identification table
 - Key phrases containing the most important keywords
-<br>
 
 ### Dependencies
 This is a Python Flask project integrating the following modules: 
@@ -16,7 +15,6 @@ This is a Python Flask project integrating the following modules:
 - Pdf to Image module (Pdf2image)
 - NLTK for Natural Language processing
 - Pandas, Seaborn, and Matplotlib for data processing and visualisation
-<br>
 
 ### Screenshots
 
