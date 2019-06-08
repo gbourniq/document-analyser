@@ -22,6 +22,18 @@ This is a Python Flask project integrating the following modules:
 - Pandas, Seaborn, and Matplotlib for data processing and visualisation
 
 
+### Screenshots
+
+![image](images/home_page.png)
+
+![image](images/loading_data.png)
+
+![image](images/keywords_per_doc.png)
+
+![image](images/topic_identification_key_sentences.png)
+
+![image](images/home_page.png)
+
 ### To run the app locally with Docker
 In the command prompt, run the following :
 1.	Install Docker
