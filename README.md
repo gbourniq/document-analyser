@@ -5,9 +5,9 @@
 The purpose of this web app is to generate insights from documents content (text files and pdf scans).
 The user can select multiple documents to generate the following :
 - Bar plot showing the 20 keywords used in all documents
-- A word cloud visualisation showing the most important keywords in all documents
-- A topic detection table with associated topic keywords
-- A list of the most common occurring words, and the sentences where they are used
+- Wor cloud visualisation showing the most important keywords in all documents
+- Toics identification table
+- Key phrases containing the most important keywords
 
 
 ### Web App deployed to Azure
