@@ -57,9 +57,9 @@ In the command prompt,
     ```
     $ .\env\Scripts\activate
     ```
-4.  Uncomment the following line in app.py (line 35) and save
+4.  Un-comment the following line 35 in app.py and save the file
     ```
-    $ #pytesseract.pytesseract.tesseract_cmd = TESSERACT_FOLDER + r"/tesseract.exe"
+    # pytesseract.pytesseract.tesseract_cmd = TESSERACT_FOLDER + r"/tesseract.exe"
     ```
 5.  Run the app from the command line
     ```
