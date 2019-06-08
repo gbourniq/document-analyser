@@ -2,7 +2,7 @@
 
 
 ### Overview
-The purpose of this web app is to generate insights from documents content (text files and pdf scans).
+The purpose of this web app is to generate insights from documents contents (text files and pdf scans).
 The user can select multiple documents to generate the following :
 - Bar plot chart with the top 20 keywords in all documents
 - Wor cloud visualisation showing the most important keywords in all documents
