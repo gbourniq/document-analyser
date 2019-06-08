@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {% if stage == "pdfprocessing" %}
+        <script>
+            var source = new EventSource("/progress_pdfprocessing");
+            source.onmessage = function(event) {
+                $('.progress-bar').css('width', event.data+'%').attr('aria-valuenow', event.data);
+                $('.progress-bar-label').text(event.data+'%');
+                if(event.data == 100){
+                    source.close()
+                    setTimeout(
+                        function() 
+                        {
+                        window.document.location.href = window.location.protocol + "//" + window.location.host + "/results_progress";
+                        }, 1000);
+               }
+            }
+        </script>
+    {% elif stage == "textanalysis" %}
+        <script>
+            var source = new EventSource("/generate_results");
+            source.onmessage = function(event) {
+                $('.progress-bar').css('width', event.data+'%').attr('aria-valuenow', event.data);
+                $('.progress-bar-label').text(event.data+'%');
+                if(event.data == 100){
+                    source.close()
+                    setTimeout(
+                        function() 
+                        {
+                        window.document.location.href = window.location.protocol + "//" + window.location.host + "/results";
+                        }, 1000);
+               }
+            }
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container contpad">
+        <br>
+        {% if stage == "fileselection" %}
+            <div class="jumbotron">
+                <br><br><br>
+                <p>Documents selection (.pdf or .txt)</p>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" class="form-control" name="fileList" placeholder="files" id="apkfile" multiple>
+                <button type="submit" class="btn btn-default" name="submitButton" value=Upload>
+                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                </button>
+            </form>
+            <br><br>
+            <div class="jumbotron">
+                <br><br>
+                <a href="/download/Project_Report_scan.pdf" class="btn btn-primary my-2">.PDF Sample</a> 
+                <a href="/download/docs_samples_txt.zip" class="btn btn-primary my-2">.TXT Sample</a>            
+            </div>
+        {% elif stage == "pdfprocessing" %}
+            <div class="jumbotron">
+                <br><br><br>
+                <p>Loading data from documents...</p>
+                <br><br>
+                <div class="progress" style="width: 50%; margin: 0px;margin-left: auto; margin-right:auto;">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                        <span class="progress-bar-label">0%</span>
+                    </div>
+                </div>
+            </div>
+        {% elif stage == "textanalysis" %}
+        <div class="jumbotron">
+            <br><br><br>
+            <p>Generating insights from documents...</p>
+            <br><br>
+            <div class="progress" style="width: 50%; margin: 0px;margin-left: auto; margin-right:auto;">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    <span class="progress-bar-label">0%</span>
+                </div>
+            </div>
+        </div>
+        {% elif stage == "uploadfailure" %}
+            <div class="jumbotron">
+                <br><br><br>
+                <p>Unexpected error ocurred. Please report the issue to your administrator.</p>
+            </div>
+        {% elif stage == "results" %}
+            <div class="jumbotron">
+                <br><br><br>
+                <p style="text-align:left;">Analysis results for the following documents :</p> 
+                <p style="text-align:left;">{{ doc_list | safe }}</p>   
+            </div>
+            <div class="jumbotron">
+                    <br>
+                    <p>Top {{ topN }} Keywords</p>
+                    <img src="/static/images/word_freq.png" alt="word frequency image" width="950" height="600"/>  
+            </div>
+            <div class="jumbotron">
+                <br>
+                <p>Word Cloud Visualisation</p>
+                <br><br><br>
+                <img src="/static/images/wordcloud.png" alt="word cloud image" width="1000" height="500"/>       
+            </div>
+            <div class="container contpadend">
+                <br>
+                <font size="+1"><center>Topic Identification</center></font>
+                <br>
+
+                <form method="POST" enctype="multipart/form-data" id="topics_form">
+
+                    <center>
+                        <select name="topics" method="GET" action="/">
+                            {% for row in topic_choices %}
+                                <option value="{{ row[0] }}"{% if row[0] == topic_state.topic_choice %} selected {% endif %}>{{ row[1] }}</option>
+                            {% endfor %}
+                        </select>&nbsp;Topics
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select name="words" method="GET" action="/">
+                            {% for row in word_choices %}
+                                <option value="{{ row[0] }}"{% if row[0] == word_state.word_choice %} selected {% endif %}>{{ row[1] }}</option>
+                            {% endfor %}
+                        </select>&nbsp;Words per topics
+                    </center>
+                    <br>
+                    <button type="submit" class="btn btn-default" name="topics_form" value="Upload">
+                        <span class="glyphicon glyphicon-triangle-bottom"></span>
+                    </button>
+
+                </form>
+
+                <br>
+                <table>
+                    <tr>
+                        {% for col in topics_df_column_names %}
+                        <th>{{col | safe}}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for row in topics_df_row_data %}
+                    <tr>
+                        {% for col, row_ in zip(topics_df_column_names, row) %}
+                            <td>{{row_ | safe}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br>
+            </div>
+            <div class="container contpadend">
+                <br>
+                <font size="+1"><center>Key Phrases</center></font>
+
+                <br>
+                <form method="POST" enctype="multipart/form-data" id="filters_form">
+                    <center>
+                        Keyword selection &nbsp;
+                        <select name="filters" method="GET" action="/">
+                            {% for row in filter_choices %}
+                                <option value="{{ row[0] }}"{% if row[0] == filter_state.filter_choice %} selected {% endif %}>{{ row[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </center>
+                    <br>
+                    <button type="submit" class="btn btn-default" name="filters_form" value="Upload">
+                        <span class="glyphicon glyphicon-triangle-bottom"></span>
+                    </button>
+                </form>
+                <br>
+
+                <table>
+                    <tr>
+                        {% for col in common_words_df_column_names %}
+                        <!--<th>{{col | safe}}</th>-->
+                        {% endfor %}
+                    </tr>
+                    {% for row in common_words_df_row_data %}
+                    <tr>
+                        {% for col, row_ in zip(common_words_df_column_names, row) %}
+                            <td>{{row_ | safe}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br><br><br> 
+            </div>
+        {% endif %} 
+    
+    </div>
+
+{% endblock %}
