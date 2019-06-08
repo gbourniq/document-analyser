@@ -22,17 +22,25 @@ This is a Python Flask project integrating the following modules:
 - Pandas, Seaborn, and Matplotlib for data processing and visualisation
 
 
+
 ### Screenshots
 
+Home page
 ![image](images/home_page.png)
 
+Loading page (Extract data and generate results)
 ![image](images/loading_data.png)
 
+Bar plot showing the top N keywords per uploaded document
 ![image](images/keywords_per_doc.png)
 
+Wordcloud visualisation
+![image](images/wordcloud.png)
+
+Topic identification and key sentences tables
 ![image](images/topic_identification_key_sentences.png)
 
-![image](images/home_page.png)
+
 
 ### To run the app locally with Docker
 In the command prompt, run the following :
