@@ -65,4 +65,4 @@ In the command prompt,
     ```
     $ python .\app.py
     ```
-4.	Open a browser and navigate to http://localhost:5000/
+4.	Visit http://localhost:5000/
