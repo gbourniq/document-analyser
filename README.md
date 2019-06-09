@@ -1,11 +1,11 @@
 # Document Analyser Application
 URL: https://document-analyser.azurewebsites.net/<br/>
 
-### Overview
+### Scope
 The purpose of this web app is to generate insights from documents contents (text files and pdf scans).
 The user can select multiple documents to generate the following :
 - Bar plot chart with the top 20 keywords in all documents
-- Wor cloud visualisation showing the most important keywords in all documents
+- Word cloud visualisation showing the most important keywords in all documents
 - Toics identification table
 - Key phrases containing the most important keywords
 
@@ -16,7 +16,7 @@ This is a Python Flask project integrating the following modules:
 - NLTK for Natural Language processing
 - Pandas, Seaborn, and Matplotlib for data processing and visualisation
 
-### Screenshots
+### App Overview
 
 Home page
 <br>
